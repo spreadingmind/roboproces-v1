@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RoboProcess — вопросы к видео робота</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#overview">RoboProcess</a>
+    <nav>
+      <a href="#overview">Сводка</a>
+      <a href="#types">Типы вопросов</a>
+      <a href="#examples">Примеры</a>
+      <a href="#next">Дальше</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <p class="eyebrow">Видео выполнений робота</p>
+      <h1>Roboprocess v1</h1>
+      <p class="lead">
+        Каждый пример — короткий фрагмент с головной камеры и один вопрос на английском.
+        Ответ либо называет действие, либо даёт процент выполнения.
+        Прогоны моделей, которые отвечают на эти вопросы, идут в <strong>NextGenAI Framework</strong>.
+      </p>
+      <div class="stats-board">
+        <article class="tile tile-ink">
+          <strong>300</strong>
+          <span>примеров в наборе</span>
+        </article>
+        <article class="tile tile-copper">
+          <strong>5 × 60</strong>
+          <span>типов вопросов, поровну</span>
+        </article>
+        <article class="tile tile-sand tile-wide">
+          <strong>11</strong>
+          <p>разных сценариев. Один сценарий — это одно и то же место и один и тот же тип работы. Например, отдельный домашний сценарий: тумбочка, диван, ящик. Внутри него роботу дают много разных поручений.</p>
+        </article>
+        <article class="tile tile-green">
+          <strong>276</strong>
+          <p>разных формулировок задачи. Например: «сложи шорты на диване», «вытри стол», «убери зубочистки в ящик».</p>
+        </article>
+        <article class="tile tile-clay">
+          <strong>279</strong>
+          <p>отдельных съёмок, как робот выполняет поручение.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="facts-title">
+      <h2 id="facts-title">Из чего собран набор</h2>
+      <div class="facts">
+        <div>
+          <h3>Где снимали</h3>
+          <p>Две обстановки: торговый зал и дом. В торговом зале робот раскладывает товары и собирает их в корзину, дома — перекладывает вещи.</p>
+          <div class="bar-row">
+            <div class="bar-label"><span>Торговый зал</span><span>248</span></div>
+            <div class="track"><div class="fill" style="width:82.7%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label"><span>Дом</span><span>52</span></div>
+            <div class="track"><div class="fill fill-alt" style="width:17.3%"></div></div>
+          </div>
+        </div>
+        <div>
+          <h3>Что видит модель</h3>
+          <ul class="plain">
+            <li>Одна камера: вид с головы робота.</li>
+            <li>В набор входят только выполнения, доведённые до конца.</li>
+            <li>Типичный план — около 6 шагов, от 1 до 17.</li>
+            <li>Вопросы и эталонные ответы написаны по-английски.</li>
+            <li>В 65 примерах в кадр вместе с действием попадает подготовительное движение корпуса. В текст ответа оно не входит.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="subhead">Точность и F1, %</h3>
+      <p class="note">
+        Пять моделей отвечали на штатный вход каждого типа. Прогоны выполнены в <strong>NextGenAI Framework</strong>.
+        Для прогресса F1 не считается: ответ — одно число.
+      </p>
+      <h3 class="table-title">С видео</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Модель</th>
+              <th></th>
+              <th>Текущее</th>
+              <th>Следующий</th>
+              <th>Завершённое</th>
+              <th>Прогресс</th>
+              <th>Пропущенный</th>
+              <th>Все</th>
+            </tr>
+          </thead>
+          <tbody id="score-body"></tbody>
+        </table>
+      </div>
+      <h3 class="table-title">Без видео</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Модель</th>
+              <th></th>
+              <th>Текущее</th>
+              <th>Следующий</th>
+              <th>Завершённое</th>
+              <th>Прогресс</th>
+              <th>Пропущенный</th>
+              <th>Все</th>
+            </tr>
+          </thead>
+          <tbody id="text-score-body"></tbody>
+        </table>
+      </div>
+      <h3 class="table-title">Оценка на независимой модели</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Модель</th>
+              <th></th>
+              <th>Текущее</th>
+              <th>Следующий</th>
+              <th>Завершённое</th>
+              <th>Прогресс</th>
+              <th>Пропущенный</th>
+              <th>Все</th>
+            </tr>
+          </thead>
+          <tbody id="indep-score-body"></tbody>
+        </table>
+      </div>
+
+      <h3 class="subhead">Проверка судьи</h3>
+      <p class="note">На 186 сэмплах сверили автоматическую разметку с ответами Grok, GPT Astra и Claude.</p>
+      <div class="judge-metrics">
+        <article>
+          <strong>73.1%</strong>
+          <span>согласие с автоматической разметкой</span>
+        </article>
+        <article>
+          <strong>0.43</strong>
+          <span>Cohen’s κ относительно большинства</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="types">
+      <h2>Как устроен каждый тип</h2>
+      <p class="note">Кадр нарезается по-разному: от этого зависит, какое действие ещё видно, а какое уже нет.</p>
+      <div class="type-grid" id="type-grid"></div>
+    </section>
+
+    <section class="panel" id="examples">
+      <h2>Попробуйте один пример каждого типа</h2>
+      <p class="note">Посмотрите ролик, ответьте на вопрос и откройте проверку. Для действий балл 0 или 1 ставит судья Pollux-4B: единица, если названо то же действие. Для прогресса ответ сверяется с числом по формуле.</p>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div id="stage"></div>
+    </section>
+
+    <section class="panel" id="next">
+      <h2>Дальнейшая работа</h2>
+      <ol class="next-list">
+        <li>Ручная валидация сэмплов.</li>
+        <li>Human baseline: оценить реальную сложность бенчмарка. Ответить на вопрос, нужно ли дополнительно подавать инструкцию пользователя во всех вопросах.</li>
+        <li>Доработка LLM-as-judge: уточнить критерии и поднять согласованность. Ответить на вопрос, важно ли требовать от модели указание конкретной руки, или можно засчитывать ответ, если верно указано само действие.</li>
+        <li>Замеры на целевых моделях ЦР, получение обратной связи по составлению элементов бенчмарка и его сложности и актуальности.</li>
+      </ol>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
